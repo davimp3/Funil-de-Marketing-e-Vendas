@@ -271,12 +271,94 @@ for nome_metrica, config in etapas_para_calcular.items():
 soma_das_cadencias = sum(resultados_cadencia.values())
 
 st.title("Análise de Funil CAC")
-st.metric(
-    label="Total Investido:",
-    value = f"R${investimento_total:,.2f}",
-    border=True
-)
-st.markdown("---")
+lista_dfs_investimento = []
+fontes_anuncio = ['kapthalead_meta', 'kapthaenterprise_meta', 'kaptha_google']
+for chave in st.session_state: # Itera sobre todas as chaves carregadas
+    if chave in fontes_anuncio:
+        df_original = st.session_state[chave]
+        if 'Data' in df_original.columns and 'Investimento' in df_original.columns:
+            lista_dfs_investimento.append(df_original[['Data', 'Investimento']])
+
+investimento_diario = pd.Series(dtype='float64')
+if lista_dfs_investimento:
+    df_investimento_historico = pd.concat(lista_dfs_investimento)
+    df_investimento_historico['Data'] = pd.to_datetime(df_investimento_historico['Data'], errors='coerce')
+    df_investimento_historico.dropna(subset=['Data'], inplace=True)
+    investimento_diario = df_investimento_historico.groupby('Data')['Investimento'].sum().sort_index()
+    
+investimento_anterior = 0.0
+delta_str = "—" 
+delta_color = "#aab0b6"
+
+# 1. Define as datas do período anterior (sem a necessidade de 'duracao_periodo')
+data_fim_anterior = data_inicio - pd.Timedelta(days=1)
+data_inicio_anterior = data_fim_anterior - pd.Timedelta(days=30) # Comparando com 30 dias fixos
+
+# --- CORREÇÃO APLICADA AQUI ---
+# Converte as datas para o tipo Timestamp do Pandas para garantir a compatibilidade
+data_inicio_anterior_ts = pd.Timestamp(data_inicio_anterior)
+data_fim_anterior_ts = pd.Timestamp(data_fim_anterior)
+# --------------------------------
+
+# Recalcula o investimento para o período anterior
+for chave, df_original in st.session_state.items():
+    if chave in mapa_investimento:
+        coluna_data = mapa_datas[chave]
+        coluna_investimento = mapa_investimento[chave]
+        
+        if coluna_data in df_original.columns and coluna_investimento in df_original.columns:
+            # Garante que a coluna de data no DF também seja do tipo datetime completo
+            df_original[coluna_data] = pd.to_datetime(df_original[coluna_data], errors='coerce')
+            
+            # Usa as novas variáveis Timestamp na query
+            df_periodo_anterior = df_original.query(
+                "@data_inicio_anterior_ts <= `{0}` <= @data_fim_anterior_ts".format(coluna_data)
+            )
+            investimento_anterior += df_periodo_anterior[coluna_investimento].sum()
+
+if investimento_anterior > 0:
+    mudanca_percentual = ((investimento_total - investimento_anterior) / investimento_anterior)
+    delta_str = f"{mudanca_percentual:+.1%}" # Formato de porcentagem com sinal
+elif investimento_total > 0:
+    delta_str = "Novo"
+
+
+st.subheader("Performance de Investimento")
+with st.container(border=True):
+    col_metrica, col_delta, col_sparkline = st.columns([3,3,3])
+
+    with col_metrica:
+        st.metric(
+            label="Investimento Total no Período",
+            value=f"R$ {investimento_total:,.2f}"
+        )
+
+    with col_sparkline:
+        if not investimento_diario.empty:
+            fig_sparkline = pe.line(
+                x=investimento_diario.index,
+                y=investimento_diario.values,
+            )
+            fig_sparkline.update_layout(
+                showlegend=False,
+                xaxis=dict(visible=False),
+                yaxis=dict(visible=False),
+                margin=dict(l=0, r=0, t=0, b=0),
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)',
+                height=100
+            )
+            fig_sparkline.update_traces(line=dict(color='#0583F2', width=3))
+            st.plotly_chart(fig_sparkline, use_container_width=True)
+    
+with col_delta:
+    st.metric(
+        label="Comparação com Período Anterior:",
+        value=delta_str,
+        delta=delta_str
+    )
+
+st.markdown("---") 
 
 df_cadencia = pd.DataFrame(resultados_cadencia.items(), columns=['Etapa', 'Dias'])
 
