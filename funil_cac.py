@@ -157,6 +157,9 @@ if 'sprinthub' in dfs_filtrados:
         condicao_origem = (df_sprint_filtrado[coluna_origem] == 'Inbound')
         contratos_assinados_inbound = df_sprint_filtrado[condicao_etapa & condicao_origem].shape[0]
         
+total_reunioes_agendadas = reunioes_agendadas_inbound + propostas_apresentadas_inbound +contratos_assinados_inbound
+total_propostas = propostas_apresentadas_inbound+contratos_assinados_inbound
+        
 valor_reunioes_inbound = 0.0
 
 if 'sprinthub' in dfs_filtrados:
@@ -191,12 +194,12 @@ else:
     cpl_inbound = 0
 
 if reunioes_agendadas_inbound > 0:
-    cpra_inbound = investimento_total / reunioes_agendadas_inbound
+    cpra_inbound = investimento_total / total_reunioes_agendadas
 else:
     cpra_inbound = 0
 
 if propostas_apresentadas_inbound > 0:
-    cppa_inbound = investimento_total / propostas_apresentadas_inbound
+    cppa_inbound = investimento_total / total_propostas
 else:
     cppa_inbound = 0
     
@@ -311,7 +314,7 @@ for chave, df_original in st.session_state.items():
 
 if investimento_anterior > 0:
     mudanca_percentual = ((investimento_total - investimento_anterior) / investimento_anterior)
-    delta_str = f"{mudanca_percentual:+.1%}" # Formato de porcentagem com sinal
+    delta_str = f"{mudanca_percentual:+.1%}" 
 elif investimento_total > 0:
     delta_str = "Novo"
 
@@ -430,7 +433,7 @@ with col1:
 with col2:
     data_funil = {
         'Etapa': ['Contatos', 'Reuniões', 'Propostas', 'Contratos'],
-        'Quantidade': [total_primeiros_contatos, reunioes_agendadas_inbound, propostas_apresentadas_inbound, contratos_assinados_inbound]
+        'Quantidade': [total_primeiros_contatos, total_reunioes_agendadas, total_propostas, contratos_assinados_inbound]
     }
     df_funil = pd.DataFrame(data_funil)
     
@@ -519,18 +522,18 @@ with col3:
     # --- Exibição do Gráfico no Streamlit ---
     st.plotly_chart(fig_custo, use_container_width=True)
     
-col1, col2, col3, col4 , col5, col6= st.columns(6)
+col1, col2, col3, col4= st.columns(4)
 
-with col3:
+with col2:
     st.metric(
-        label = "Valor na Etapa Reuniões Agendadas:",
+        label = f"Valor na Etapa Reuniões Agendadas(Clientes na etapa: {reunioes_agendadas_inbound})",
         value = f"R${valor_reunioes_inbound:,.2f}",
         border=True
     )
     
-with col4:
+with col3:
     st.metric(
-        label="Valor na Etapa Propostas Pendentes:",
+        label=f"Valor na Etapa Propostas Pendentes(Clientes na etapa: {propostas_apresentadas_inbound}):",
         value = f"R${valor_propostas_inbound:,.2f}",
         border=True
     )
