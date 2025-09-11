@@ -334,10 +334,13 @@ with st.container(border=True):
         )
 
     with col_sparkline:
+        
+        st.write("Investimento no Tempo")
         if not investimento_diario.empty:
             fig_sparkline = pe.line(
                 x=investimento_diario.index,
                 y=investimento_diario.values,
+                
             )
             fig_sparkline.update_layout(
                 showlegend=False,
