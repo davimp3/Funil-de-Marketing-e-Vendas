@@ -290,27 +290,20 @@ investimento_anterior = 0.0
 delta_str = "—" 
 delta_color = "#aab0b6"
 
-# 1. Define as datas do período anterior (sem a necessidade de 'duracao_periodo')
 data_fim_anterior = data_inicio - pd.Timedelta(days=1)
-data_inicio_anterior = data_fim_anterior - pd.Timedelta(days=30) # Comparando com 30 dias fixos
+data_inicio_anterior = data_fim_anterior - pd.Timedelta(days=30) 
 
-# --- CORREÇÃO APLICADA AQUI ---
-# Converte as datas para o tipo Timestamp do Pandas para garantir a compatibilidade
 data_inicio_anterior_ts = pd.Timestamp(data_inicio_anterior)
 data_fim_anterior_ts = pd.Timestamp(data_fim_anterior)
-# --------------------------------
 
-# Recalcula o investimento para o período anterior
 for chave, df_original in st.session_state.items():
     if chave in mapa_investimento:
         coluna_data = mapa_datas[chave]
         coluna_investimento = mapa_investimento[chave]
         
         if coluna_data in df_original.columns and coluna_investimento in df_original.columns:
-            # Garante que a coluna de data no DF também seja do tipo datetime completo
             df_original[coluna_data] = pd.to_datetime(df_original[coluna_data], errors='coerce')
             
-            # Usa as novas variáveis Timestamp na query
             df_periodo_anterior = df_original.query(
                 "@data_inicio_anterior_ts <= `{0}` <= @data_fim_anterior_ts".format(coluna_data)
             )
@@ -356,7 +349,7 @@ with st.container(border=True):
     
 with col_delta:
     st.metric(
-        label="Comparação com Período Anterior:",
+        label="Comparação com Período Anterior(30 Dias):",
         value=delta_str,
         delta=delta_str
     )
