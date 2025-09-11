@@ -270,7 +270,7 @@ for nome_metrica, config in etapas_para_calcular.items():
 
 soma_das_cadencias = sum(resultados_cadencia.values())
 
-st.title("Análise de Funil CAC")
+st.title("Análise de Funil CAC🔻")
 lista_dfs_investimento = []
 fontes_anuncio = ['kapthalead_meta', 'kapthaenterprise_meta', 'kaptha_google']
 for chave in st.session_state: # Itera sobre todas as chaves carregadas
