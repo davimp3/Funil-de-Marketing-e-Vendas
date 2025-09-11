@@ -464,7 +464,7 @@ with col2:
                             textposition='inside')
     
     fig_funil.update_traces(
-        texttemplate='R$ %{x:,.2f}',
+        texttemplate=' %{x:,}',
         textposition='outside' # <-- ALTERADO DE 'inside' PARA 'outside'
     )
     
