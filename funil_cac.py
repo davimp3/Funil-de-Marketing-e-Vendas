@@ -524,13 +524,13 @@ col1, col2, col3, col4 , col5, col6= st.columns(6)
 with col3:
     st.metric(
         label = "Orçamento em Reuniões Agendadas:",
-        value = f"{valor_reunioes_inbound:,.2f}",
+        value = f"R${valor_reunioes_inbound:,.2f}",
         border=True
     )
     
 with col4:
     st.metric(
         label="Orçamento em Propostas Pendentes:",
-        value = f"{valor_propostas_inbound:,.2f}",
+        value = f"R${valor_propostas_inbound:,.2f}",
         border=True
     )
