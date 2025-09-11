@@ -7,7 +7,8 @@ from data_loader import(
     initialize_session_state_kapthaenterprisemeta,
     initialize_session_state_kapthagoogle,
     initialize_session_state_kapthaleadmeta,
-    initialize_session_state_sprinthub
+    initialize_session_state_sprinthub,
+    tratar_coluna_data
 )
 
 st.set_page_config(
@@ -330,8 +331,8 @@ with st.container(border=True):
         )
 
     with col_sparkline:
-        
-        st.write("Investimento no Tempo")
+
+        st.write(f"Investimento no Tempo: (Período selecionado: {data_minima_geral.strftime('%d/%m/%Y')} à {data_maxima_geral.strftime('%d/%m/%Y')})")
         if not investimento_diario.empty:
             fig_sparkline = pe.line(
                 x=investimento_diario.index,
@@ -385,14 +386,13 @@ mapa_de_cores = {
 }
 
 col1, col2, col3 = st.columns(3)
-
 with col1:
     if soma_das_cadencias > 0:
         df_cadencia['Porcentagem'] = (df_cadencia['Dias'] / soma_das_cadencias) * 100
     else:
         df_cadencia['Porcentagem'] = 0
     
-    titulo_grafico = f"Ciclo Médio ({soma_das_cadencias:.1f} Dias)<br><sub>Tempo por etapas.</sub>"
+    titulo_grafico = f"Ciclo Médio Etapas ({soma_das_cadencias:.1f} Dias)<br><sub>Tempo por etapas.</sub>"
     
     fig = pe.bar(
         df_cadencia,
@@ -430,6 +430,7 @@ with col1:
             trace.textposition = 'outside'
 
     st.plotly_chart(fig, use_container_width=True)
+
 with col2:
     data_funil = {
         'Etapa': ['Contatos', 'Reuniões', 'Propostas', 'Contratos'],
@@ -461,17 +462,17 @@ with col2:
     
     fig_funil.update_traces(
         texttemplate=' %{x:,}',
-        textposition='outside' # <-- ALTERADO DE 'inside' PARA 'outside'
+        textposition='outside' 
     )
-    
+
     for trace in fig_funil.data:
-        # Se o nome da barra for 'Contratos', mudamos a posição do texto SÓ DELA para 'inside'
         if trace.name == 'Contatos':
             trace.textposition = 'inside'
+            
+    
     
     st.plotly_chart(fig_funil, use_container_width=True)
 with col3:
-    # --- Preparação dos dados (continua o mesmo) ---
     data_custo = {
         'Etapa': ['Contatos', 'Reuniões', 'Propostas', 'Contratos'],
         'Custo': [cpl_inbound, cpra_inbound, cppa_inbound, cac_inbound]
@@ -486,7 +487,6 @@ with col3:
         color_discrete_map=mapa_de_cores
     )
 
-    # --- Refinamentos do Layout do Gráfico ---
     fig_custo.update_layout(
         yaxis_title=None,
         xaxis_title="Custo Médio (R$)",
@@ -496,11 +496,8 @@ with col3:
         paper_bgcolor='rgba(0,0,0,0)'
     )
 
-    # --- MUDANÇA 1: INVERTE A DIREÇÃO DAS BARRAS (direita para esquerda) ---
     fig_custo.update_xaxes(autorange="reversed")
 
-    # --- MUDANÇA 2: MOVE O EIXO Y PARA A DIREITA ---
-    # (E mantém a ordem das categorias que já tínhamos, com Contatos no topo)
     fig_custo.update_yaxes(
         side='right',
         categoryorder='array',
@@ -513,13 +510,10 @@ with col3:
         textposition='outside'
     )
 
-    # Etapa 2: Iteramos por cada barra (trace) do gráfico para encontrar a que queremos mudar
     for trace in fig_custo.data:
-        # Se o nome da barra for 'Contratos', mudamos a posição do texto SÓ DELA para 'inside'
         if trace.name == 'Contratos':
             trace.textposition = 'inside'
-
-    # --- Exibição do Gráfico no Streamlit ---
+            
     st.plotly_chart(fig_custo, use_container_width=True)
     
 col1, col2, col3, col4= st.columns(4)
