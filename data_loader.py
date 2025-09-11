@@ -1,0 +1,106 @@
+import streamlit as st
+import pandas as pd
+
+# -------------------------------------------------------------------
+# FUNÇÕES DE TRATAMENTO (NÃO PRECISAM MUDAR)
+# -------------------------------------------------------------------
+def tratar_coluna_data(df, nome_coluna, nome_fonte=""):
+    if nome_coluna in df.columns:
+        numericos = pd.to_numeric(df[nome_coluna], errors='coerce')
+        datas_de_numeros = pd.to_datetime(numericos, origin='1899-12-30', unit='D', errors='coerce')
+        datas_de_texto = pd.to_datetime(df[nome_coluna], errors='coerce', dayfirst=True)
+        coluna_limpa = datas_de_texto.fillna(datas_de_numeros)
+        df[nome_coluna] = coluna_limpa.dt.date
+    else:
+        st.warning(f"A coluna de data '{nome_coluna}' não foi encontrada na fonte '{nome_fonte}'.")
+    return df
+
+def limpar_e_converter_para_numero(coluna_df):
+    """
+    Função definitiva que:
+    1. Limpa strings de moeda no formato BR (ex: "R$ 42.076,29").
+    2. Converte para número.
+    3. Converte de centavos para Reais (divide por 100).
+    """
+    if coluna_df is None:
+        return pd.Series(dtype='float64')
+    
+    # Etapa 1: Limpeza da String para o formato numérico brasileiro
+    coluna_limpa = (
+        coluna_df.astype(str)
+                 .str.replace('R$', '', regex=False)
+                 .str.replace('.', '', regex=False)    # <<-- CORREÇÃO: Remove o ponto de milhar
+                 .str.replace(',', '.', regex=False)    # <<-- CORREÇÃO: Troca a vírgula do decimal por ponto
+                 .str.strip()
+    )
+    
+    # Etapa 2: Converte a string limpa para número
+    valores_numericos = pd.to_numeric(coluna_limpa, errors='coerce').fillna(0)
+    
+    # Etapa 3: Regra Universal - Converte de centavos para Reais
+    return valores_numericos 
+# -------------------------------------------------------------------
+# FUNÇÕES DE CARREGAMENTO (COM A CORREÇÃO DE 1 LINHA)
+# -------------------------------------------------------------------
+def initialize_session_state_kapthaleadmeta():
+    if 'kapthalead_meta' not in st.session_state:
+        df = pd.read_csv("Dados/Dados Meta Kaptha  - Dados.csv")
+        
+        
+        df.columns = df.columns.str.strip()
+        
+        df = tratar_coluna_data(df, 'Data', nome_fonte="Kaptha Lead Meta")
+        df['Investimento'] = limpar_e_converter_para_numero(df.get('Investimento'))
+        df['Primeiro Contato'] = limpar_e_converter_para_numero(df.get('Primeiro Contato'))
+        
+        st.session_state['kapthalead_meta'] = df
+        
+def initialize_session_state_kapthaenterprisemeta():
+    if 'kapthaenterprise_meta' not in st.session_state:
+        df = pd.read_csv("Dados/Dados Meta Kaptha Enterprise  - Dados.csv")
+        
+        # --- LINHA MÁGICA ADICIONADA ---
+        df.columns = df.columns.str.strip() # Remove espaços dos nomes das colunas
+        
+        df = tratar_coluna_data(df, 'Data', nome_fonte="Kaptha Enterprise Meta")
+        df['Investimento'] = limpar_e_converter_para_numero(df.get('Investimento'))
+        df['Primeiro Contato'] = limpar_e_converter_para_numero(df.get('Primeiro Contato'))
+        
+        st.session_state['kapthaenterprise_meta'] = df
+        
+def initialize_session_state_kapthagoogle():
+    if 'kaptha_google' not in st.session_state:
+        df = pd.read_csv("Dados/Dados Google Kaptha - Dados.csv")
+
+        # --- LINHA MÁGICA ADICIONADA ---
+        df.columns = df.columns.str.strip() # Remove espaços dos nomes das colunas
+        
+        df = tratar_coluna_data(df, 'Data', nome_fonte="Kaptha Google")
+        df['Investimento'] = limpar_e_converter_para_numero(df.get('Investimento'))
+        df['Primeiro Contato'] = limpar_e_converter_para_numero(df.get('Primeiro Contato'))
+        
+        st.session_state['kaptha_google'] = df
+        
+def initialize_session_state_sprinthub():
+    if 'sprinthub' not in st.session_state:
+        df = pd.read_csv("Dados/Dados Sprint Hub - Dados.csv")
+        df.columns = df.columns.str.strip() # Boa prática adicionar aqui também
+        df = tratar_coluna_data(df, 'data_movimentacao', nome_fonte="SprintHub")
+        df['valor'] = limpar_e_converter_para_numero(df['valor'])
+        st.session_state['sprinthub'] = df
+    
+def tratar_coluna_data(df, nome_coluna, nome_fonte=""):
+    if nome_coluna in df.columns:
+        # Tenta converter a coluna inteira para numérico primeiro
+        numericos = pd.to_numeric(df[nome_coluna], errors='coerce')
+        # Converte números (datas do Excel) para datetime
+        datas_de_numeros = pd.to_datetime(numericos, origin='1899-12-30', unit='D', errors='coerce')
+        # Converte o que não for número (texto) para datetime
+        datas_de_texto = pd.to_datetime(df[nome_coluna], errors='coerce', dayfirst=True)
+        
+        # Combina os resultados e só então extrai a data
+        coluna_limpa = datas_de_texto.fillna(datas_de_numeros)
+        df[nome_coluna] = coluna_limpa.dt.date
+    else:
+        st.warning(f"A coluna de data '{nome_coluna}' não foi encontrada na fonte '{nome_fonte}'.")
+    return df
