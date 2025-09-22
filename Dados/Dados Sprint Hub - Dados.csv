@@ -1,54 +1,12 @@
 firstname,lastname,origem,empresa,valor,etapa,lead_id,status,data_movimentacao,data_ganho,data_criado,Plano Contratado
-Gustavo,Quintão,Indicação Interna,Gustavo Quintão,"R$ 0,00",Reunião Agendada,2940,Aberto,,,09/09/2025,
-Paulo,,Indicação Interna,Paulo Souza - Tênis,"R$ 0,00",Reunião Agendada,2933,Aberto,,,08/09/2025,
-PH,,Indicação Interna,PH,"R$ 0,00",Reunião Agendada,2931,Aberto,,,08/09/2025,
-Gustavo,Digital,Inbound,Hippie,"R$ 697,00",Reunião Agendada,2879,Aberto,05/09/2025,,05/09/2025,
-Rodrigo,Rocha,Indicação Interna,Isnet,"R$ 0,00",Reunião Agendada,2830,Aberto,,,02/09/2025,
-Douglas,Mascarenhas,Inbound,Douglas,"R$ 697,00",Reunião Agendada,2786,Aberto,26/08/2025,,26/08/2025,
-Dani,,1,Dani,"R$ 0,00",Reunião Agendada,2657,Aberto,11/08/2025,,11/08/2025,
-Evolucão,,1,Evolucão,"R$ 0,00",Reunião Agendada,2651,Aberto,12/08/2025,,12/08/2025,
-Ana,Corretora,1,Ana,"R$ 0,00",Reunião Agendada,2632,Aberto,13/08/2025,,13/08/2025,
-Jk,Despachante,1,Jk,"R$ 0,00",Reunião Agendada,2609,Aberto,07/08/2025,,07/08/2025,
-Lucas,Eli | Corretor de Imóveis,1,Lucas,"R$ 0,00",Reunião Agendada,2567,Aberto,07/08/2025,,07/08/2025,
-Katiuscia Silva,,Inbound,Sou Analista Corporal,"R$ 500,00",Proposta Apresentada,2737,Aberto,02/09/2025,,20/08/2025,500
-Andréia,,Indicação Interna,Vercom,"R$ 697,00",Proposta Apresentada,2877,Aberto,08/09/2025,,04/09/2025,500
-Cristhiane,Sampaio,Indicação Interna,Cristhiane - Tricologista,"R$ 697,00",Proposta Apresentada,2800,Aberto,08/09/2025,,27/08/2025,500
-Juliana,Alves - Autônoma Soluções Empresariais,Inbound,Juliana Alves Soluções Empresariais,"R$ 697,00",Proposta Apresentada,2761,Aberto,05/09/2025,,26/08/2025,500
-Psicólogo,Pedro Uilton Cerqueira,Inbound,Psicólogo Pedro Uilson,"R$ 697,00",Proposta Apresentada,2818,Aberto,03/09/2025,,01/09/2025,500
-Stephanie,Desmots,Inbound,Stephanie - Proteção Veicular,"R$ 697,00",Proposta Apresentada,2806,Aberto,03/09/2025,,28/08/2025,500
-Giovanni,Barony,Inbound,Giovanni Barony - Corretor de Imóveis,"R$ 697,00",Proposta Apresentada,2829,Aberto,02/09/2025,,02/09/2025,500
-Rafael,Mermejo,Indicação Interna,Rafael - Indicação Valdecir,"R$ 300,00",Proposta Apresentada,2796,Aberto,27/08/2025,,27/08/2025,1
-Flávio,,Inbound,Europe Proteção Veicular,"R$ 500,00",Proposta Apresentada,2791,Aberto,01/09/2025,,27/08/2025,500
-Henrique,Gabriel,3,Garen Automação,"R$ 500,00",Proposta Apresentada,2470,Aberto,01/08/2025,,24/07/2025,500
-Cristiano Piroli,Cristiano Piroli,Indicação Interna,Cristiano Piroli,"R$ 500,00",Assinatura de Contrato,2797,Aberto,05/09/2025,,27/08/2025,500
-Vicare,,Indicação Interna,Vicare Mercearia LTDA,"R$ 500,00",Assinatura de Contrato,2823,Aberto,01/09/2025,,01/09/2025,500
-Vicare,,Indicação Interna,Hexag Medicina - Bauru,"R$ 500,00",Contrato Assinado,2821,Ganho,03/09/2025,03/09/2025,01/09/2025,850
-Vicare,,Indicação Interna,Hexag Medicina - São José do Rio Preto,"R$ 850,00",Contrato Assinado,2822,Ganho,03/09/2025,03/09/2025,01/09/2025,850
-Vicare,,Indicação Interna,Hexag Medicina - Ribeirão Preto,"R$ 850,00",Contrato Assinado,2799,Ganho,03/09/2025,03/09/2025,27/08/2025,850
-Drumond,,3,Drumond Veículos,"R$ 500,00",Contrato Assinado,2624,Ganho,01/09/2025,01/09/2025,08/08/2025,500
-Alexandre,,Indicação Interna,Sua Música Online,"R$ 500,00",Contrato Assinado,2795,Ganho,28/08/2025,28/08/2025,27/08/2025,500
-Rodrigo,America,"Indicação Interna,3",Pax Universal,"R$ 850,00",Contrato Assinado,2378,Ganho,18/08/2025,18/08/2025,18/07/2025,850
-Clinica Veterinária - Lucas,Brey,1,Clinica Veterinária - Lucas Brey,"R$ 500,00",Contrato Assinado,2474,Ganho,27/08/2025,27/08/2025,24/07/2025,500
-Lucianara,Duarte,Indicação Interna,Lucianara Nutricionista,"R$ 500,00",Contrato Assinado,2749,Ganho,27/08/2025,27/08/2025,21/08/2025,500
-Eduardo,Silva,Inbound,"Eduardo ""Limpa Nome""","R$ 300,00",Contrato Assinado,2542,Ganho,25/08/2025,25/08/2025,31/07/2025,1
-Luciano,Mendonça Piacenti,Indicação Interna,Hexag Medicina - Santos,"R$ 1.000,00",Contrato Assinado,2744,Ganho,22/08/2025,22/08/2025,21/08/2025,1500
-Aline,,Indicação Interna,Sonhare Vistos (Daniel da Silva Neiva),"R$ 500,00",Contrato Assinado,2487,Ganho,21/08/2025,21/08/2025,25/07/2025,500
-Diego,Biskaia,"1,Indicação Interna",Contabiliza Cash,"R$ 300,00",Contrato Assinado,2623,Ganho,18/08/2025,18/08/2025,08/08/2025,300
-Felipe,,1,AF Decor,"R$ 300,00",Contrato Assinado,2431,Ganho,11/08/2025,11/08/2025,21/07/2025,1
-Wanderson,Oliveira,1,Wanderson Corretor,"R$ 300,00",Contrato Assinado,2595,Ganho,12/08/2025,12/08/2025,06/08/2025,300
-Samuel,Rocha Lima,3,Rocha Lima Engenharia LTDA,"R$ 500,00",Contrato Assinado,2547,Ganho,,31/07/2025,31/07/2025,500
-Valdecir,Mermejo,Indicação Interna,Consulta Já,"R$ 850,00",Contrato Assinado,2088,Ganho,26/08/2025,27/08/2025,18/07/2025,850
-Lucas,Galli,"3,Indicação Interna",Monitor Valuation,"R$ 500,00",Contrato Assinado,2062,Ganho,28/07/2025,28/07/2025,18/07/2025,500
-La Rosa,-,Indicação Prudem,La Rosa,"R$ 500,00",Contrato Assinado,2066,Ganho,22/07/2025,23/07/2025,18/07/2025,500
-Vinicius Zander (Emive),Zander,Indicação Leislayne,Vinicius Zander (Emive),"R$ 500,00",Contrato Assinado,2065,Ganho,18/07/2025,18/07/2025,18/07/2025,500
-Jaqueline,-,Indicação Interna,Naplan Feng Shui,"R$ 850,00",Contrato Assinado,2332,Ganho,21/07/2025,23/07/2025,18/07/2025,850
-Glaysson,Diniz,"Indicação Interna,3", Innovar Decor Ambientes Planejados,"R$ 850,00",Contrato Assinado,2172,Ganho,22/07/2025,23/07/2025,18/07/2025,850
-Goose Educação,Marcio,Indicação Interna,Goose Educação,"R$ 500,00",Contrato Assinado,2071,Ganho,22/07/2025,23/07/2025,18/07/2025,500
-Allan,-,"Outbound,3",Open Tennis,"R$ 500,00",Contrato Assinado,2336,Ganho,22/07/2025,23/07/2025,18/07/2025,500
-IntegraMente,Oliveira,Indicação Prudem,IntegraMente,"R$ 850,00",Contrato Assinado,2073,Ganho,22/07/2025,23/07/2025,18/07/2025,850
-Cartório do Notas - Francinny,-,Indicação Prudem,CORONEL FABRICIANO CARTORIO,"R$ 500,00",Contrato Assinado,2075,Ganho,22/07/2025,23/07/2025,18/07/2025,500
-219,-,Indicação Interna,RGA SUPERMERCADOS,"R$ 500,00",Contrato Assinado,2177,Ganho,23/07/2025,23/07/2025,18/07/2025,500
-Eliezer,,5,ERT Móveis Planejados,"R$ 500,00",Contrato Assinado,2399,Ganho,,18/07/2025,18/07/2025,500
-Glaysson,Diniz,"Indicação Interna,3",Mundo dos Colchões,"R$ 500,00",Contrato Assinado,2172,Ganho,22/07/2025,23/07/2025,18/07/2025,500
-João,Puntel,3,Performa Energia,"R$ 850,00",Contrato Assinado,2398,Ganho,,18/07/2025,18/07/2025,850
-Rede Wellness,-,Indicação Interna,Rede Wellness,"R$ 1.500,00",Contrato Assinado,2067,Ganho,22/07/2025,23/07/2025,18/07/2025,1500
+VTALMAIS,SAÚDE,Inbound,VTALMAIS,"R$0,00",Reunião Agendada,2879,Aberto,11/09/2025,,11/09/2025,Plano Essencial
+Fga.,Tanity Rodrigues,Inbound,Tanity Rodrigues - Fonodiologa,"R$697,00",Proposta Apresentada,2786,Aberto,18/09/2025,,12/09/2025,Plano Essencial
+ABN,OFICINA DE NEGOCIOS,Inbound,Auro Barros - Advogado,"R$1.499,00",Proposta Apresentada,2737,Aberto,18/09/2025,,16/09/2025,Plano Avançado
+Renata,Bento,Inbound,Renata,"R$1.394,00",Proposta Apresentada,2761,Aberto,17/09/2025,,16/09/2025,Plano Avançado
+Auro Barros,Rocha Rezende,Inbound,Vitalle Planejados,"R$697,00",Proposta Apresentada,2818,Aberto,15/09/2025,,12/09/2025,Plano Essencial
+Juliana,Alves - Autônoma Soluções Empresariais,Inbound,Juliana Alves Soluções Empresariais,"R$697,00",Proposta Apresentada,2806,Aberto,05/09/2025,,26/08/2025,Plano Essencial
+Flávio,,Inbound,Europe Proteção Veicular,"R$500,00",Contrato Assinado,2829,Ganho,10/09/2025,10/09/2025,27/08/2025,Plano Essencial
+Clinica Veterinária - Lucas,Brey,Inbound,Clinica Veterinária - Lucas Brey,"R$500,00",Contrato Assinado,2791,Ganho,27/08/2025,27/08/2025,24/07/2025,Plano Essencial
+Eduardo,Silva,Inbound,"Eduardo ""Limpa Nome""","R$300,00",Contrato Assinado,2542,Ganho,25/08/2025,25/08/2025,31/07/2025,Plano Essencial
+Felipe,,Inbound,AF Decor,"R$300,00",Contrato Assinado,,Ganho,11/08/2025,11/08/2025,21/07/2025,Plano Essencial
+Wanderson,Oliveira,Inbound,Wanderson Corretor,"R$300,00",Contrato Assinado,,Ganho,12/08/2025,12/08/2025,06/08/2025,Plano Essencial
