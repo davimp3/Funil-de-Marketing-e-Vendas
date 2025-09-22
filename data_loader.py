@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-# -------------------------------------------------------------------
-# FUNÇÕES DE TRATAMENTO (NÃO PRECISAM MUDAR)
-# -------------------------------------------------------------------
+# Tratamento
 def tratar_coluna_data(df, nome_coluna, nome_fonte=""):
     if nome_coluna in df.columns:
         numericos = pd.to_numeric(df[nome_coluna], errors='coerce')
@@ -16,21 +14,14 @@ def tratar_coluna_data(df, nome_coluna, nome_fonte=""):
     return df
 
 def limpar_e_converter_para_numero(coluna_df):
-    """
-    Função definitiva que:
-    1. Limpa strings de moeda no formato BR (ex: "R$ 42.076,29").
-    2. Converte para número.
-    3. Converte de centavos para Reais (divide por 100).
-    """
     if coluna_df is None:
         return pd.Series(dtype='float64')
     
-    # Etapa 1: Limpeza da String para o formato numérico brasileiro
     coluna_limpa = (
         coluna_df.astype(str)
                  .str.replace('R$', '', regex=False)
-                 .str.replace('.', '', regex=False)    # <<-- CORREÇÃO: Remove o ponto de milhar
-                 .str.replace(',', '.', regex=False)    # <<-- CORREÇÃO: Troca a vírgula do decimal por ponto
+                 .str.replace('.', '', regex=False)    
+                 .str.replace(',', '.', regex=False)    
                  .str.strip()
     )
     

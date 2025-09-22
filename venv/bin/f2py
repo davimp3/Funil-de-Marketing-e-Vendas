@@ -1,5 +1,5 @@
 #!/bin/sh
-'''exec' "/home/davi-nepomuceno/Documents/Funil Analitico Kaptha/venv/bin/python3" "$0" "$@"
+'''exec' "/home/davi-nepomuceno/Documents/Funil Analitico Kaptha/Funil-de-Marketing-e-Vendas/venv/bin/python3" "$0" "$@"
 ' '''
 # -*- coding: utf-8 -*-
 import re
