@@ -56,6 +56,10 @@ mapa_valor = {
     'sprinthub': 'valor'
 }
 
+mapa_plano = {
+    'sprinthub': 'Plano Contratado'
+}
+
 lista_datas_minimas = []
 lista_datas_maximas = []
 
@@ -80,10 +84,17 @@ else:
     data_maxima_geral = pd.to_datetime('today').date()
 
 st.sidebar.header("Filtros de Data")
+
+data_inicio_padrao = data_maxima_geral - pd.DateOffset(months=3)
+data_inicio_padrao = pd.to_datetime(data_inicio_padrao).date()
+
+if data_inicio_padrao < data_minima_geral:
+    data_inicio_padrao = data_minima_geral
+    
 data_selecionada = st.sidebar.date_input(
     "Selecione o Período",
-    value=(data_minima_geral, data_maxima_geral), 
-    min_value=data_minima_geral,
+    value=(data_inicio_padrao, data_maxima_geral), 
+    min_value= data_inicio_padrao,
     max_value=data_maxima_geral,
 )
 
@@ -332,7 +343,7 @@ with st.container(border=True):
 
     with col_sparkline:
 
-        st.write(f"Investimento no Tempo: (Período selecionado: {data_minima_geral.strftime('%d/%m/%Y')} à {data_maxima_geral.strftime('%d/%m/%Y')})")
+        st.write(f"Investimento no Tempo: (Período selecionado: {data_inicio_padrao.strftime('%d/%m/%Y')} à {data_maxima_geral.strftime('%d/%m/%Y')})")
         if not investimento_diario.empty:
             fig_sparkline = pe.line(
                 x=investimento_diario.index,
@@ -516,18 +527,77 @@ with col3:
             
     st.plotly_chart(fig_custo, use_container_width=True)
     
-col1, col2, col3, col4= st.columns(4)
+col1, col2= st.columns(2)
 
+with col1:
+    st.subheader("Análise de Planos Contratados")
+    
+    coluna_plano = mapa_plano.get('sprinthub')
+    coluna_etapa = mapa_etapa.get('sprinthub')
+    
+    if 'sprinthub' in dfs_filtrados and coluna_plano and coluna_etapa:
+        df_sprint_filtrado = dfs_filtrados['sprinthub']
+        
+        df_contratos_assinados = df_sprint_filtrado[df_sprint_filtrado[coluna_etapa] == 'Contrato Assinado']
+        
+        if not df_contratos_assinados.empty and coluna_plano in df_contratos_assinados.columns:
+            
+            # --- INÍCIO DA ALTERAÇÃO ---
+            # Garante que a coluna de planos seja do tipo string e remove espaços em branco
+            planos_para_grafico = df_contratos_assinados[coluna_plano].astype(str).str.strip()
+            
+            # Filtra a série para incluir apenas os planos válidos, ignorando maiúsculas/minúsculas
+            planos_validos = ['Plano Essencial', 'Plano Avançado']
+            condicao_planos_validos = planos_para_grafico.str.lower().isin([p.lower() for p in planos_validos])
+            planos_filtrados = planos_para_grafico[condicao_planos_validos]
+
+            if not planos_filtrados.empty:
+                # Conta a ocorrência de cada plano a partir da série já filtrada e limpa
+                contagem_planos = planos_filtrados.value_counts().reset_index()
+                contagem_planos.columns = ['Plano', 'Quantidade']
+
+                fig_pie = pe.pie(
+                    contagem_planos,
+                    names='Plano',
+                    values='Quantidade',
+                    title="Distribuição dos Planos Contratados",
+                    hole=.3 
+                )
+
+                fig_pie.update_traces(
+                    textposition='inside', 
+                    textinfo='percent+label',
+                    marker=dict(colors=pe.colors.sequential.Blues_r)
+                )
+
+                fig_pie.update_layout(
+                    showlegend=True,
+                    font=dict(family="Arial", size=14, color="white"),
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    legend_title_text='Planos'
+                )
+
+                st.plotly_chart(fig_pie, use_container_width=True)
+            else:
+                st.info("Nenhum 'Plano Essencial' ou 'Plano Avançado' contratado no período.")
+            # --- FIM DA ALTERAÇÃO ---
+        else:
+            st.info("Nenhum contrato assinado no período selecionado ou coluna de planos não encontrada.")
+    else:
+        st.info("Dados de planos não disponíveis.") 
+        
 with col2:
+    
+    st.subheader("Valores por Etapa")
     st.metric(
         label = f"Valor na Etapa Reuniões Agendadas(Clientes na etapa: {reunioes_agendadas_inbound})",
         value = f"R${valor_reunioes_inbound:,.2f}",
         border=True
     )
-    
-with col3:
     st.metric(
         label=f"Valor na Etapa Propostas Pendentes(Clientes na etapa: {propostas_apresentadas_inbound}):",
         value = f"R${valor_propostas_inbound:,.2f}",
-        border=True
-    )
+        border=True)
+    
+   
