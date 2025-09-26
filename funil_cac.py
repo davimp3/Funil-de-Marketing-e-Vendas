@@ -529,64 +529,66 @@ with col3:
     
 col1, col2= st.columns(2)
 
-with col1:
-    st.subheader("Análise de Planos Contratados")
-    
-    coluna_plano = mapa_plano.get('sprinthub')
-    coluna_etapa = mapa_etapa.get('sprinthub')
-    
-    if 'sprinthub' in dfs_filtrados and coluna_plano and coluna_etapa:
+with col1:    
+    st.subheader("Distribuição dos Planos (Contratados e Propostos)")
+    if 'sprinthub' in dfs_filtrados:
         df_sprint_filtrado = dfs_filtrados['sprinthub']
         
-        df_contratos_assinados = df_sprint_filtrado[df_sprint_filtrado[coluna_etapa] == 'Contrato Assinado']
-        
-        if not df_contratos_assinados.empty and coluna_plano in df_contratos_assinados.columns:
+        # Verifica se as colunas de plano existem
+        if 'Plano1' in df_sprint_filtrado.columns and 'Plano3' in df_sprint_filtrado.columns:
             
-            # --- INÍCIO DA ALTERAÇÃO ---
-            # Garante que a coluna de planos seja do tipo string e remove espaços em branco
-            planos_para_grafico = df_contratos_assinados[coluna_plano].astype(str).str.strip()
+            # Combina 'Plano1' e 'Plano3' em uma única coluna para análise
+            df_sprint_filtrado['Plano Combinado'] = df_sprint_filtrado['Plano1'].fillna(df_sprint_filtrado['Plano3'])
+
+            # Remove as linhas onde não há informação de plano
+            df_planos = df_sprint_filtrado.dropna(subset=['Plano Combinado'])
             
-            # Filtra a série para incluir apenas os planos válidos, ignorando maiúsculas/minúsculas
-            planos_validos = ['Plano Essencial', 'Plano Avançado']
-            condicao_planos_validos = planos_para_grafico.str.lower().isin([p.lower() for p in planos_validos])
-            planos_filtrados = planos_para_grafico[condicao_planos_validos]
+            # Verifica se há dados para plotar após a limpeza
+            if not df_planos.empty:
+                # Conta a ocorrência de cada plano
+                planos_counts = df_planos['Plano Combinado'].value_counts().reset_index()
+                planos_counts.columns = ['Plano', 'Quantidade']
 
-            if not planos_filtrados.empty:
-                # Conta a ocorrência de cada plano a partir da série já filtrada e limpa
-                contagem_planos = planos_filtrados.value_counts().reset_index()
-                contagem_planos.columns = ['Plano', 'Quantidade']
-
-                fig_pie = pe.pie(
-                    contagem_planos,
+                # Cria o gráfico de pizza (donut) com Plotly Express
+                fig_pizza = pe.pie(
+                    planos_counts,
                     names='Plano',
                     values='Quantidade',
-                    title="Distribuição dos Planos Contratados",
-                    hole=.3 
+                    hole=.3, # Define o estilo "donut"
+                    color_discrete_sequence=pe.colors.sequential.Blues_r
                 )
 
-                fig_pie.update_traces(
+                # Melhora a legibilidade dos textos no gráfico
+                fig_pizza.update_traces(
                     textposition='inside', 
                     textinfo='percent+label',
-                    marker=dict(colors=pe.colors.sequential.Blues_r)
+                    pull=[0.05] * len(planos_counts) # Separa levemente as fatias
                 )
-
-                fig_pie.update_layout(
+                
+                # Ajusta o layout geral do gráfico
+                fig_pizza.update_layout(
                     showlegend=True,
-                    font=dict(family="Arial", size=14, color="white"),
+                    font=dict(
+                        family="Arial, sans-serif",
+                        size=14,
+                        color="white"
+                    ),
                     plot_bgcolor='rgba(0,0,0,0)',
                     paper_bgcolor='rgba(0,0,0,0)',
                     legend_title_text='Planos'
                 )
 
-                st.plotly_chart(fig_pie, use_container_width=True)
+                # Exibe o gráfico no Streamlit
+                st.plotly_chart(fig_pizza, use_container_width=True)
             else:
-                st.info("Nenhum 'Plano Essencial' ou 'Plano Avançado' contratado no período.")
-            # --- FIM DA ALTERAÇÃO ---
+                st.info("Não foram encontrados dados de planos para o período selecionado.")
         else:
-            st.info("Nenhum contrato assinado no período selecionado ou coluna de planos não encontrada.")
+            st.warning("As colunas 'Plano1' e/ou 'Plano3' não foram encontradas.")
     else:
-        st.info("Dados de planos não disponíveis.") 
-        
+        st.info("Dados do SprintHub não estão disponíveis.")
+
+    
+    
 with col2:
     
     st.subheader("Valores por Etapa")
