@@ -27,18 +27,16 @@ def limpar_e_converter_para_numero(coluna_df):
     valores_numericos = pd.to_numeric(coluna_limpa, errors='coerce').fillna(0)
     return valores_numericos 
 
+
+
 # FUNÇÕES DE CARREGAMENTO 
 def initialize_session_state_kapthaleadmeta():
     if 'kapthalead_meta' not in st.session_state:
-        df = pd.read_csv("Dados/Dados Meta Kaptha  - Dados.csv")
-        
-        
-        df.columns = df.columns.str.strip()
-        
+        df = pd.read_csv("Dados/Dados Meta Kaptha  - Dados.csv")                
+        df.columns = df.columns.str.strip()        
         df = tratar_coluna_data(df, 'Data', nome_fonte="Kaptha Lead Meta")
         df['Investimento'] = limpar_e_converter_para_numero(df.get('Investimento'))
-        df['Primeiro Contato'] = limpar_e_converter_para_numero(df.get('Primeiro Contato'))
-        
+        df['Primeiro Contato'] = limpar_e_converter_para_numero(df.get('Primeiro Contato'))        
         st.session_state['kapthalead_meta'] = df
         
 def initialize_session_state_kapthaenterprisemeta():

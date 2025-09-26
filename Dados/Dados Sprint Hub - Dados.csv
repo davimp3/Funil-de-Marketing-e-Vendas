@@ -1,12 +1,12 @@
-firstname,lastname,origem,empresa,valor,etapa,lead_id,status,data_movimentacao,data_ganho,data_criado,Plano Contratado
-VTALMAIS,SAÚDE,Inbound,VTALMAIS,"R$0,00",Reunião Agendada,2879,Aberto,11/09/2025,,11/09/2025,Plano Essencial
-Fga.,Tanity Rodrigues,Inbound,Tanity Rodrigues - Fonodiologa,"R$697,00",Proposta Apresentada,2786,Aberto,18/09/2025,,12/09/2025,Plano Essencial
-ABN,OFICINA DE NEGOCIOS,Inbound,Auro Barros - Advogado,"R$1.499,00",Proposta Apresentada,2737,Aberto,18/09/2025,,16/09/2025,Plano Avançado
-Renata,Bento,Inbound,Renata,"R$1.394,00",Proposta Apresentada,2761,Aberto,17/09/2025,,16/09/2025,Plano Avançado
-Auro Barros,Rocha Rezende,Inbound,Vitalle Planejados,"R$697,00",Proposta Apresentada,2818,Aberto,15/09/2025,,12/09/2025,Plano Essencial
-Juliana,Alves - Autônoma Soluções Empresariais,Inbound,Juliana Alves Soluções Empresariais,"R$697,00",Proposta Apresentada,2806,Aberto,05/09/2025,,26/08/2025,Plano Essencial
-Flávio,,Inbound,Europe Proteção Veicular,"R$500,00",Contrato Assinado,2829,Ganho,10/09/2025,10/09/2025,27/08/2025,Plano Essencial
-Clinica Veterinária - Lucas,Brey,Inbound,Clinica Veterinária - Lucas Brey,"R$500,00",Contrato Assinado,2791,Ganho,27/08/2025,27/08/2025,24/07/2025,Plano Essencial
-Eduardo,Silva,Inbound,"Eduardo ""Limpa Nome""","R$300,00",Contrato Assinado,2542,Ganho,25/08/2025,25/08/2025,31/07/2025,Plano Essencial
-Felipe,,Inbound,AF Decor,"R$300,00",Contrato Assinado,,Ganho,11/08/2025,11/08/2025,21/07/2025,Plano Essencial
-Wanderson,Oliveira,Inbound,Wanderson Corretor,"R$300,00",Contrato Assinado,,Ganho,12/08/2025,12/08/2025,06/08/2025,Plano Essencial
+firstname,lastname,origem,empresa,valor,etapa,lead_id,status,data_movimentacao,data_ganho,data_criado,Plano1,Plano3
+VTALMAIS,SAÚDE,Inbound,VTALMAIS,"R$0,00",Reunião Agendada,2879,Aberto,11/09/2025,,11/09/2025,Plano Essencial,
+Fga.,Tanity Rodrigues,Inbound,Tanity Rodrigues - Fonodiologa,"R$697,00",Proposta Apresentada,2786,Aberto,18/09/2025,,12/09/2025,Plano Essencial,
+ABN,OFICINA DE NEGOCIOS,Inbound,Auro Barros - Advogado,"R$1.499,00",Proposta Apresentada,2737,Aberto,18/09/2025,,16/09/2025,,Plano Avançado
+Renata,Bento,Inbound,Renata,"R$1.394,00",Proposta Apresentada,2761,Aberto,17/09/2025,,16/09/2025,,Plano Avançado
+Auro Barros,Rocha Rezende,Inbound,Vitalle Planejados,"R$697,00",Proposta Apresentada,2818,Aberto,15/09/2025,,12/09/2025,Plano Essencial,
+Juliana,Alves - Autônoma Soluções Empresariais,Inbound,Juliana Alves Soluções Empresariais,"R$697,00",Proposta Apresentada,2806,Aberto,05/09/2025,,26/08/2025,Plano Essencial,
+Flávio,,Inbound,Europe Proteção Veicular,"R$500,00",Contrato Assinado,2829,Ganho,10/09/2025,10/09/2025,27/08/2025,Plano Essencial,
+Clinica Veterinária - Lucas,Brey,Inbound,Clinica Veterinária - Lucas Brey,"R$500,00",Contrato Assinado,2791,Ganho,27/08/2025,27/08/2025,24/07/2025,Plano Essencial,
+Eduardo,Silva,Inbound,"Eduardo ""Limpa Nome""","R$300,00",Contrato Assinado,2542,Ganho,25/08/2025,25/08/2025,31/07/2025,Plano Essencial,
+Felipe,,Inbound,AF Decor,"R$300,00",Contrato Assinado,,Ganho,11/08/2025,11/08/2025,21/07/2025,Plano Essencial,
+Wanderson,Oliveira,Inbound,Wanderson Corretor,"R$300,00",Contrato Assinado,,Ganho,12/08/2025,12/08/2025,06/08/2025,Plano Essencial,
