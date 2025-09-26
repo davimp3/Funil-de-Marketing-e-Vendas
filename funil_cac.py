@@ -369,7 +369,6 @@ with col_delta:
         delta=delta_str
     )
 
-st.markdown("---") 
 st.subheader("Funil de Custo por Aquisição")
 
 df_cadencia = pd.DataFrame(resultados_cadencia.items(), columns=['Etapa', 'Dias'])
